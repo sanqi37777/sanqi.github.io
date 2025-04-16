@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>切换同城模式</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <h3>正在切换为同城模式，请稍等...</h3>
+
+  <script>
+    fetch("https://api.neixin.cn/token/api/v1/set", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        pa: "",
+        tk: "d18608514df93fcc8b11bfb035a128235c75b584a405bda948736fe402a761e7",
+        u: 1440006984,
+        ai: 17,
+        dm: "iphone",
+        td: "",
+        xd: "99BD61CE-6E9E-492F-AD60-F781807BFAC6_1_17"
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.code === 0) {
+        // 切换成功后跳转 App
+        window.location.href = "crowdsource://";
+      } else {
+        alert("切换失败：" + data.msg);
+      }
+    })
+    .catch(err => {
+      alert("请求失败：" + err);
+    });
+  </script>
+</body>
+</html>
